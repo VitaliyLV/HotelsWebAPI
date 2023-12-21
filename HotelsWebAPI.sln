@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelsApplication", "WebApplication2\HotelsApplication.csproj", "{36446FA1-F4B3-4467-8F76-72BBFD302AE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelsApplication", "HotelsWebAPI\HotelsApplication.csproj", "{36446FA1-F4B3-4467-8F76-72BBFD302AE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
