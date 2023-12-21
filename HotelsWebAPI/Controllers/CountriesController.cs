@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using HotelsApplication.Data;
 using HotelsApplication.Models.Country;
 using AutoMapper;
+using HotelsApplication.Repository;
+using HotelsApplication.Interfaces;
 
 namespace HotelsApplication.Controllers
 {
@@ -15,12 +17,12 @@ namespace HotelsApplication.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        private readonly HotelsDBContext _context;
+        private readonly ICountryRepository _repository;
         private readonly IMapper _mapper;
 
-        public CountriesController(HotelsDBContext context, IMapper mapper)
+        public CountriesController(ICountryRepository repository, IMapper mapper)
         {
-            _context = context;
+            _repository = repository;
             _mapper = mapper;
         }
 
@@ -28,7 +30,7 @@ namespace HotelsApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CountryDto>>> GetCountries()
         {
-            var countries = await _context.Countries.ToListAsync();
+            var countries = await _repository.GetAllAsync();
             var getCountries = _mapper.Map<List<CountryDto>>(countries);
             return Ok(getCountries);
         }
@@ -37,7 +39,7 @@ namespace HotelsApplication.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CountryDetailDto>> GetCountry(int id)
         {
-            var country = await _context.Countries.Include(c => c.Hotels).FirstOrDefaultAsync(c => c.Id == id);
+            var country = await _repository.GetDetails(id);
 
             if (country == null)
             {
@@ -57,7 +59,7 @@ namespace HotelsApplication.Controllers
             {
                 return BadRequest();
             }
-            var country = await _context.Countries.FindAsync(id);
+            var country = await _repository.GetAsync(id);
             if (country == null)
             {
                 return NotFound();
@@ -66,11 +68,11 @@ namespace HotelsApplication.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _repository.UpdateAsync(country);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CountryExists(id))
+                if (!await CountryExists(id))
                 {
                     return NotFound();
                 }
@@ -86,35 +88,33 @@ namespace HotelsApplication.Controllers
         // POST: api/Countries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Country>> PostCountry(CreateCountryDto createCountry)
+        public async Task<ActionResult<CountryDto>> PostCountry(CreateCountryDto createCountry)
         {
             var country = _mapper.Map<Country>(createCountry);
+            var newCountry = await _repository.AddAsync(country);
+            var returnCountry = _mapper.Map<CountryDto>(newCountry);
 
-            _context.Countries.Add(country);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCountry", new { id = country.Id }, country);
+            return CreatedAtAction("GetCountry", new { id = returnCountry.Id }, returnCountry);
         }
 
         // DELETE: api/Countries/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
+            var country = await _repository.GetAsync(id);
             if (country == null)
             {
                 return NotFound();
             }
 
-            _context.Countries.Remove(country);
-            await _context.SaveChangesAsync();
+            await _repository.DeleteAsync(id);
 
             return NoContent();
         }
 
-        private bool CountryExists(int id)
+        private async Task<bool> CountryExists(int id)
         {
-            return _context.Countries.Any(e => e.Id == id);
+            return await _repository.Exists(id);
         }
     }
 }
