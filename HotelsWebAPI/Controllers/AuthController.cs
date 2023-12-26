@@ -15,6 +15,7 @@ namespace HotelsApplication.Controllers
         {
             _manager = manager;
         }
+
         [HttpPost]
         [Route("register")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -30,6 +31,21 @@ namespace HotelsApplication.Controllers
                     ModelState.AddModelError(error.Code, error.Description);
                 }
                 return BadRequest(ModelState);
+            }
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("login")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> Login(LoginDto loginDto)
+        {
+            var isValidUser = await _manager.Login(loginDto);
+            if (!isValidUser)
+            {
+                return Unauthorized();
             }
             return Ok();
         }
