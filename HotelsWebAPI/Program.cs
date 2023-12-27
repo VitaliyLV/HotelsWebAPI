@@ -20,7 +20,10 @@ builder.Services.AddDbContext<HotelsDBContext>(options =>
 
 builder.Services.AddIdentityCore<ApiUser>()
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<HotelsDBContext>();
+    .AddTokenProvider<DataProtectorTokenProvider<ApiUser>>("HotelsAPI")
+    .AddEntityFrameworkStores<HotelsDBContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -69,6 +72,8 @@ if (app.Environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
+
+app.UseAuthorization();
 app.UseAuthorization();
 app.MapControllers();
 

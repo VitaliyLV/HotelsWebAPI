@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using HotelsApplication.Data;
+using HotelsApplication.Interfaces;
+using HotelsApplication.Models.Country;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HotelsApplication.Data;
-using HotelsApplication.Models.Country;
-using AutoMapper;
-using HotelsApplication.Repository;
-using HotelsApplication.Interfaces;
 
 namespace HotelsApplication.Controllers
 {
@@ -28,6 +23,7 @@ namespace HotelsApplication.Controllers
 
         // GET: api/Countries
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<CountryDto>>> GetCountries()
         {
             var countries = await _repository.GetAllAsync();
@@ -37,6 +33,7 @@ namespace HotelsApplication.Controllers
 
         // GET: api/Countries/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<CountryDetailDto>> GetCountry(int id)
         {
             var country = await _repository.GetDetails(id);
@@ -53,6 +50,7 @@ namespace HotelsApplication.Controllers
         // PUT: api/Countries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutCountry(int id, CountryDto countryDto)
         {
             if (id != countryDto.Id)
@@ -88,6 +86,7 @@ namespace HotelsApplication.Controllers
         // POST: api/Countries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<CountryDto>> PostCountry(CreateCountryDto createCountry)
         {
             var country = _mapper.Map<Country>(createCountry);
@@ -99,6 +98,7 @@ namespace HotelsApplication.Controllers
 
         // DELETE: api/Countries/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
             var country = await _repository.GetAsync(id);
