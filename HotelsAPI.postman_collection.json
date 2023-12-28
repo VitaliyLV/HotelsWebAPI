@@ -40,6 +40,36 @@
 					"response": []
 				},
 				{
+					"name": "Get all hotels query",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjJAZXhhbXBsZS5jb20iLCJqdGkiOiIwMGNlZTZmNC1mMWUwLTQyY2ItYjU2MC1mYTgzNDg1MmVjOGMiLCJlbWFpbCI6ImFkbWluMkBleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzAzNzc2OTQyLCJpc3MiOiJIb3RlbHNBUEkiLCJhdWQiOiJIb3RlbHNBUElDTGllbnQifQ.3zb1P9ZxK9oRHB3DBY7uVsPT98i1jiSr7qY2OOc-YH0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7246/api/Hotels",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7246",
+							"path": [
+								"api",
+								"Hotels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get all paged hotels",
 					"request": {
 						"auth": {

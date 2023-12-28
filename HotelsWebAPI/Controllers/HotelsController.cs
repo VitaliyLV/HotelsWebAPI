@@ -7,6 +7,7 @@ using HotelsApplication.Models.Hotel;
 using HotelsApplication.Models.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelsApplication.Controllers
@@ -27,6 +28,7 @@ namespace HotelsApplication.Controllers
 
         // GET: api/Hotels
         [HttpGet]
+        [EnableQuery]
         public async Task<ActionResult<IEnumerable<HotelDto>>> GetHotels()
         {
             var hotels = await _repository.GetAllAsync<HotelDto>();
