@@ -1,4 +1,5 @@
-﻿using HotelsApplication.Data;
+﻿using AutoMapper;
+using HotelsApplication.Data;
 using HotelsApplication.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +8,7 @@ namespace HotelsApplication.Repository
     public class HotelRepository : GenericRepository<Hotel>, IHotelRepository
     {
         HotelsDBContext _context;
-        public HotelRepository(HotelsDBContext context) : base(context)
+        public HotelRepository(HotelsDBContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
         }

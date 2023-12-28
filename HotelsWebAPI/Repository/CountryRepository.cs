@@ -1,4 +1,5 @@
-﻿using HotelsApplication.Data;
+﻿using AutoMapper;
+using HotelsApplication.Data;
 using HotelsApplication.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,7 @@ namespace HotelsApplication.Repository
     {
         private readonly HotelsDBContext _context;
 
-        public CountryRepository(HotelsDBContext context) : base(context)
+        public CountryRepository(HotelsDBContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
         }

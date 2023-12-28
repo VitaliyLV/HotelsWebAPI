@@ -1,6 +1,9 @@
-﻿using HotelsApplication.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using HotelsApplication.Data;
 using HotelsApplication.Interfaces;
 using HotelsApplication.Models.Country;
+using HotelsApplication.Models.Pagination;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelsApplication.Repository
@@ -8,10 +11,12 @@ namespace HotelsApplication.Repository
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly HotelsDBContext _context;
+        private readonly IMapper _mapper;
 
-        public GenericRepository(HotelsDBContext context)
+        public GenericRepository(HotelsDBContext context, IMapper mapper)
         {
-            this._context = context;
+            _context = context;
+            _mapper = mapper;
         }
         public async Task<T> AddAsync(T entity)
         {
@@ -41,9 +46,23 @@ namespace HotelsApplication.Repository
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<List<TResult>> GetAllAsync<TResult>()
         {
-            return await _context.Set<T>().ToListAsync();
+            return await _context.Set<T>().ProjectTo<TResult>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+        public async Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters queryParams)
+        {
+            var totalCount = await _context.Set<T>().CountAsync();
+            int startIndex = (queryParams.PageNumber - 1) * queryParams.PageSize;
+            var items = await _context.Set<T>().Skip(startIndex).Take(queryParams.PageSize)
+                .ProjectTo<TResult>(_mapper.ConfigurationProvider).ToListAsync();
+            return new PagedResult<TResult> 
+            { 
+                Items = items,
+                TotalCount = totalCount,
+                RecordNumber = queryParams.PageSize,
+                PageNumber = queryParams.PageNumber,
+            };
         }
 
         public async Task UpdateAsync(T entity)
@@ -51,5 +70,6 @@ namespace HotelsApplication.Repository
             _context.Update<T>(entity);
             await _context.SaveChangesAsync();
         }
+        
     }
 }

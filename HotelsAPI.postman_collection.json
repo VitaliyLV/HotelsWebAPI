@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "a47df57e-e78b-47f9-933f-6ca8c1190e07",
+		"name": "HotelsAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18638585"
+	},
+	"item": [
+		{
+			"name": "Hotels",
+			"item": [
+				{
+					"name": "Get all hotels",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjJAZXhhbXBsZS5jb20iLCJqdGkiOiIwMGNlZTZmNC1mMWUwLTQyY2ItYjU2MC1mYTgzNDg1MmVjOGMiLCJlbWFpbCI6ImFkbWluMkBleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzAzNzc2OTQyLCJpc3MiOiJIb3RlbHNBUEkiLCJhdWQiOiJIb3RlbHNBUElDTGllbnQifQ.3zb1P9ZxK9oRHB3DBY7uVsPT98i1jiSr7qY2OOc-YH0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7246/api/Hotels",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7246",
+							"path": [
+								"api",
+								"Hotels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all paged hotels",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjJAZXhhbXBsZS5jb20iLCJqdGkiOiIwMGNlZTZmNC1mMWUwLTQyY2ItYjU2MC1mYTgzNDg1MmVjOGMiLCJlbWFpbCI6ImFkbWluMkBleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzAzNzc2OTQyLCJpc3MiOiJIb3RlbHNBUEkiLCJhdWQiOiJIb3RlbHNBUElDTGllbnQifQ.3zb1P9ZxK9oRHB3DBY7uVsPT98i1jiSr7qY2OOc-YH0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7246/api/Hotels/paged?PageNumber=2&PageSize=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7246",
+							"path": [
+								"api",
+								"Hotels",
+								"paged"
+							],
+							"query": [
+								{
+									"key": "PageNumber",
+									"value": "2"
+								},
+								{
+									"key": "PageSize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Countries",
+			"item": [
+				{
+					"name": "CreateCountry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjJAZXhhbXBsZS5jb20iLCJqdGkiOiI1MzdkMTlhZS02MmEyLTRlOWUtYTVmZS1iZTEzYzMyMTA3YzIiLCJlbWFpbCI6ImFkbWluMkBleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzAzNjgyMjk4LCJpc3MiOiJIb3RlbHNBUEkiLCJhdWQiOiJIb3RlbHNBUElDTGllbnQifQ.Nkghm8alIn0FVT4IpPTKThf5ok4UwLu0a9flS8_8OFk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"BZ\",\r\n  \"shortName\": \"Belize\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7246/api/Countries",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7246",
+							"path": [
+								"api",
+								"Countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutCountry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwianRpIjoiNDM3NjFlNGEtY2MwZi00Y2E4LWE4YmUtNzZkZjZkMGM3MTBlIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTcwMzY4MDI0NSwiaXNzIjoiSG90ZWxzQVBJIiwiYXVkIjoiSG90ZWxzQVBJQ0xpZW50In0.m3IYJbdWg8lo1FH4zZbGKlFQOM3DGnxhAA_7zYx19e8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"BZ\",\r\n  \"shortName\": \"Belize\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7246/api/Countries",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7246",
+							"path": [
+								"api",
+								"Countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get country",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjJAZXhhbXBsZS5jb20iLCJqdGkiOiJlNDI0MGExNC0wZDViLTQ3N2EtOWRlZi1lMDhlNGFlYjAyZDYiLCJlbWFpbCI6ImFkbWluMkBleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzAzNzU5OTU4LCJpc3MiOiJIb3RlbHNBUEkiLCJhdWQiOiJIb3RlbHNBUElDTGllbnQifQ.oUC7XpeEh7rr7yYCupqaTM1yFZQJBlIUMFwnWtfAROw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7246/api/Countries/25",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7246",
+							"path": [
+								"api",
+								"Countries",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all countries",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjJAZXhhbXBsZS5jb20iLCJqdGkiOiJlNDI0MGExNC0wZDViLTQ3N2EtOWRlZi1lMDhlNGFlYjAyZDYiLCJlbWFpbCI6ImFkbWluMkBleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzAzNzU5OTU4LCJpc3MiOiJIb3RlbHNBUEkiLCJhdWQiOiJIb3RlbHNBUElDTGllbnQifQ.oUC7XpeEh7rr7yYCupqaTM1yFZQJBlIUMFwnWtfAROw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7246/api/Countries/25",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7246",
+							"path": [
+								"api",
+								"Countries",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all paged countries",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjJAZXhhbXBsZS5jb20iLCJqdGkiOiJlNDI0MGExNC0wZDViLTQ3N2EtOWRlZi1lMDhlNGFlYjAyZDYiLCJlbWFpbCI6ImFkbWluMkBleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzAzNzU5OTU4LCJpc3MiOiJIb3RlbHNBUEkiLCJhdWQiOiJIb3RlbHNBUElDTGllbnQifQ.oUC7XpeEh7rr7yYCupqaTM1yFZQJBlIUMFwnWtfAROw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7246/api/Countries/25",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7246",
+							"path": [
+								"api",
+								"Countries",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete country",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImp0aSI6ImVhZGNlNmFlLTdhOTUtNGJmOC05MjkzLTQxY2M0MmE0MzZkZCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwMzY4MTQ1NywiaXNzIjoiSG90ZWxzQVBJIiwiYXVkIjoiSG90ZWxzQVBJQ0xpZW50In0.2GtYKBKnvPO6OD5Ltx4P8ycNWWcHtG_kRrH-M0yd_pU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7246/api/Countries/1002",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7246",
+							"path": [
+								"api",
+								"Countries",
+								"1002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"password\": \"P@ssword1\",\r\n  \"email\": \"admin2@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7246/api/Auth/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7246",
+					"path": [
+						"api",
+						"Auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegisterUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"password\": \"P@ssword1\",\r\n  \"email\": \"user@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7246/api/Auth/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7246",
+					"path": [
+						"api",
+						"Auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registerAdmin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"password\": \"string\",\r\n  \"email\": \"user@example.com\",\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"company\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7246/api/Auth/registerAdmin",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7246",
+					"path": [
+						"api",
+						"Auth",
+						"registerAdmin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RefreshToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"password\": \"P@ssword1\",\r\n  \"email\": \"admin2@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7246/api/Auth/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7246",
+					"path": [
+						"api",
+						"Auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

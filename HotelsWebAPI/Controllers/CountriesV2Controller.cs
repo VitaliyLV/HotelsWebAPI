@@ -3,6 +3,7 @@ using HotelsApplication.Data;
 using HotelsApplication.Exceptions;
 using HotelsApplication.Interfaces;
 using HotelsApplication.Models.Country;
+using HotelsApplication.Models.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,13 +12,13 @@ namespace HotelsApplication.Controllers
 {
     [Route("api/v{version:apiVersion}/countries")]
     [ApiController]
-    [ApiVersion("1.0", Deprecated = true)]
-    public class CountriesController : ControllerBase
+    [ApiVersion("2.0")]
+    public class CountriesV2Controller : ControllerBase
     {
         private readonly ICountryRepository _repository;
         private readonly IMapper _mapper;
 
-        public CountriesController(ICountryRepository repository, IMapper mapper)
+        public CountriesV2Controller(ICountryRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -30,6 +31,15 @@ namespace HotelsApplication.Controllers
         {
             var countries = await _repository.GetAllAsync<CountryDto>();
             return Ok(countries);
+        }
+
+        // GET: api/Countries/Paged?PageNumber=1&PageSize=10
+        [HttpGet("Paged")]
+        [Authorize]
+        public async Task<ActionResult<PagedResult<CountryDto>>> GetPagedCountries([FromQuery] QueryParameters queryParams)
+        {
+            var pagedCountries = await _repository.GetAllAsync<CountryDto>(queryParams);
+            return Ok(pagedCountries);
         }
 
         // GET: api/Countries/5

@@ -2,7 +2,9 @@
 using HotelsApplication.Data;
 using HotelsApplication.Exceptions;
 using HotelsApplication.Interfaces;
+using HotelsApplication.Models.Country;
 using HotelsApplication.Models.Hotel;
+using HotelsApplication.Models.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,9 +29,17 @@ namespace HotelsApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HotelDto>>> GetHotels()
         {
-            var hotels = await _repository.GetAllAsync();
-            var mappedHotels = _mapper.Map<List<HotelDto>>(hotels);
-            return Ok(mappedHotels);
+            var hotels = await _repository.GetAllAsync<HotelDto>();
+            return Ok(hotels);
+        }
+
+        // GET: api/Hotels/Paged?PageNumber=1&PageSize=10
+        [HttpGet("Paged")]
+        [Authorize]
+        public async Task<ActionResult<PagedResult<HotelDto>>> GetPagedCountries([FromQuery] QueryParameters queryParams)
+        {
+            var pagedCountries = await _repository.GetAllAsync<HotelDto>(queryParams);
+            return Ok(pagedCountries);
         }
 
         // GET: api/Hotels/5
