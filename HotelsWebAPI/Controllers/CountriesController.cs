@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelsApplication.Data;
+using HotelsApplication.Exceptions;
 using HotelsApplication.Interfaces;
 using HotelsApplication.Models.Country;
 using Microsoft.AspNetCore.Authorization;
@@ -40,7 +41,7 @@ namespace HotelsApplication.Controllers
 
             if (country == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(GetCountry), id);
             }
             var countryDto = _mapper.Map<CountryDetailDto>(country);
 
@@ -55,12 +56,12 @@ namespace HotelsApplication.Controllers
         {
             if (id != countryDto.Id)
             {
-                return BadRequest();
+                throw new DifferentIDsException(nameof(PutCountry), id, countryDto.Id);
             }
             var country = await _repository.GetAsync(id);
             if (country == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(PutCountry), id);
             }
             _mapper.Map(countryDto, country);
 
@@ -72,7 +73,7 @@ namespace HotelsApplication.Controllers
             {
                 if (!await CountryExists(id))
                 {
-                    return NotFound();
+                    throw new NotFoundException(nameof(PutCountry), id);
                 }
                 else
                 {
@@ -104,7 +105,7 @@ namespace HotelsApplication.Controllers
             var country = await _repository.GetAsync(id);
             if (country == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(DeleteCountry), id);
             }
 
             await _repository.DeleteAsync(id);

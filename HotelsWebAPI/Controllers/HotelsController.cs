@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelsApplication.Data;
+using HotelsApplication.Exceptions;
 using HotelsApplication.Interfaces;
 using HotelsApplication.Models.Hotel;
 using Microsoft.AspNetCore.Authorization;
@@ -39,7 +40,7 @@ namespace HotelsApplication.Controllers
 
             if (hotel == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(GetHotel), id);
             }
             var hotelDetail = _mapper.Map<HotelDetailDto>(hotel);
 
@@ -53,12 +54,12 @@ namespace HotelsApplication.Controllers
         {
             if (id != hotelDto.Id)
             {
-                return BadRequest();
+                throw new DifferentIDsException(nameof(PutHotel), id, hotelDto.Id);
             }
             var hotel = await _repository.GetAsync(id);
             if (hotel == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(PutHotel), id);
             }
             _mapper.Map(hotelDto, hotel);
 
@@ -70,7 +71,7 @@ namespace HotelsApplication.Controllers
             {
                 if (!await HotelExists(id))
                 {
-                    return NotFound();
+                    throw new NotFoundException(nameof(PutHotel), id);
                 }
                 else
                 {
@@ -99,7 +100,7 @@ namespace HotelsApplication.Controllers
             var hotel = await _repository.GetAsync(id);
             if (hotel == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(DeleteHotel), id);
             }
 
             await _repository.DeleteAsync(id);
