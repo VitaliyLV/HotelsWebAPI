@@ -13,6 +13,8 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HotelsApplication.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,6 +114,10 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:Key"]))
     };
 });
+builder.Services.AddHealthChecks()
+    .AddCheck<HotelsHealthCheck>("General Check")
+    .AddSqlServer(connString, name: "SQL Server")
+    .AddDbContextCheck<HotelsDBContext>(name: "DB EF Context");
 
 var app = builder.Build();
 
@@ -126,6 +132,10 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = HealthResponseWriter.WriteResponse
+});
 
 app.UseAuthorization();
 app.UseAuthorization();
