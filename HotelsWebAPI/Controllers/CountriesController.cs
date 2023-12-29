@@ -12,13 +12,13 @@ namespace HotelsApplication.Controllers
 {
     [Route("api/v{version:apiVersion}/countries")]
     [ApiController]
-    [ApiVersion("2.0")]
-    public class CountriesV2Controller : ControllerBase
+    [ApiVersion("1.0")]
+    public class CountriesController : ControllerBase
     {
         private readonly ICountryRepository _repository;
         private readonly IMapper _mapper;
 
-        public CountriesV2Controller(ICountryRepository repository, IMapper mapper)
+        public CountriesController(ICountryRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

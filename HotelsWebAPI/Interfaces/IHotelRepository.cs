@@ -4,6 +4,6 @@ namespace HotelsApplication.Interfaces
 {
     public interface IHotelRepository : IGenericRepository<Hotel>
     {
-        Task<Hotel> GetDetails<HotelDetailDto>(int id);
+        Task<HotelDetailDto> GetDetails<HotelDetailDto>(int id);
     }
 }
