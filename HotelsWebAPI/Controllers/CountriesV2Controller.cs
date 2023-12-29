@@ -47,14 +47,7 @@ namespace HotelsApplication.Controllers
         [Authorize]
         public async Task<ActionResult<CountryDetailDto>> GetCountry(int id)
         {
-            var country = await _repository.GetDetails(id);
-
-            if (country == null)
-            {
-                throw new NotFoundException(nameof(GetCountry), id);
-            }
-            var countryDto = _mapper.Map<CountryDetailDto>(country);
-
+            var countryDto = await _repository.GetDetails<CountryDetailDto>(id);
             return Ok(countryDto);
         }
 

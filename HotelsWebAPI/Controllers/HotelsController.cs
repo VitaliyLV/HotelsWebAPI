@@ -47,14 +47,7 @@ namespace HotelsApplication.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<HotelDetailDto>> GetHotel(int id)
         {
-            var hotel = await _repository.GetDetails(id);
-
-            if (hotel == null)
-            {
-                throw new NotFoundException(nameof(GetHotel), id);
-            }
-            var hotelDetail = _mapper.Map<HotelDetailDto>(hotel);
-
+            var hotelDetail = await _repository.GetDetails<HotelDetailDto>(id);
             return Ok(hotelDetail);
         }
 
