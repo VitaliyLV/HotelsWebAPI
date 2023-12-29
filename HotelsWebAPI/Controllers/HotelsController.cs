@@ -2,7 +2,6 @@
 using HotelsApplication.Data;
 using HotelsApplication.Exceptions;
 using HotelsApplication.Interfaces;
-using HotelsApplication.Models.Country;
 using HotelsApplication.Models.Hotel;
 using HotelsApplication.Models.Pagination;
 using Microsoft.AspNetCore.Authorization;
@@ -109,14 +108,7 @@ namespace HotelsApplication.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHotel(int id)
         {
-            var hotel = await _repository.GetAsync(id);
-            if (hotel == null)
-            {
-                throw new NotFoundException(nameof(DeleteHotel), id);
-            }
-
             await _repository.DeleteAsync(id);
-
             return NoContent();
         }
 

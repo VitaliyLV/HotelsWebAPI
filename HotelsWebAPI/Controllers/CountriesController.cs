@@ -102,14 +102,7 @@ namespace HotelsApplication.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
-            var country = await _repository.GetAsync(id);
-            if (country == null)
-            {
-                throw new NotFoundException(nameof(DeleteCountry), id);
-            }
-
             await _repository.DeleteAsync(id);
-
             return NoContent();
         }
 

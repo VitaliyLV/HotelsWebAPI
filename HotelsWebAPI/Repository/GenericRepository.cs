@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HotelsApplication.Data;
+using HotelsApplication.Exceptions;
 using HotelsApplication.Interfaces;
-using HotelsApplication.Models.Country;
 using HotelsApplication.Models.Pagination;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +28,10 @@ namespace HotelsApplication.Repository
         public async Task DeleteAsync(int id)
         {
             var entity = await GetAsync(id);
+            if (entity == null)
+            {
+                throw new NotFoundException(typeof(T).Name, id);
+            }
             _context.Set<T>().Remove(entity);
             await _context.SaveChangesAsync();
         }
